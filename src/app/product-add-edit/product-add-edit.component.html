@@ -1,0 +1,69 @@
+<!-- product-add-edit.component.html -->
+<app-custom-modal [showModal]="true" [modalTitle]="isEditMode ? 'Update Product' : 'Create Product'" (closeModal)="close()">
+  <div class="modal-body">
+    <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+      </div>
+      
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" formControlName="price">
+        </mat-form-field>
+      </div>
+      
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
+      
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Category</mat-label>
+          <mat-select formControlName="category" class="select">
+            <mat-option *ngFor="let category of categories" [value]="category">
+              {{category}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div class="mb-3">
+        <label>Condition</label>
+        <mat-radio-group formControlName="condition">
+          <mat-radio-button *ngFor="let condition of conditions" [value]="condition" class="d-block">
+            {{condition}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      
+      <div class="mb-3">
+        <mat-checkbox formControlName="available">Available</mat-checkbox>
+      </div>
+      
+      <div class="mb-3">
+        <mat-form-field appearance="fill" class="w-100">
+          <mat-label>Release Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="releaseDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  
+  <div class="modal-footer">
+    <div class="d-flex justify-content-end">
+      <button mat-flat-button color="primary" type="submit" (click)="saveProduct()" style="margin-right: 10px ;">
+        {{ isEditMode ? 'Update' : 'Create' }} Product
+      </button>
+      <button mat-flat-button color="warn" type="button" (click)="close()">Cancel</button>
+    </div>
+  </div>
+</app-custom-modal>
